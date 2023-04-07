@@ -23,18 +23,21 @@ export const NavigationItem: React.FC<Props> = props => {
         },
       )}
       href={route}
+      data-testid="navigation-item"
     >
       <Icon
         className={clsx({
           'text-grey-300': !isActive,
         })}
         size={32}
+        data-testid="navigation-item-icon"
       />
 
       <span
         className={clsx('mt-2 text-sm', {
           'text-grey-200': !isActive,
         })}
+        data-testid="navigation-item-name"
       >
         {name}
       </span>
