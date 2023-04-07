@@ -13,6 +13,8 @@ export default {
       colors: {
         'white-low': '#f6f6f6',
         grey: '#b5c0ca',
+        'grey-200': '#babdc4',
+        'grey-300': '#afb3bb',
         yellow: '#f1dbad',
         brown: '#524239',
         red: '#ff2454',
