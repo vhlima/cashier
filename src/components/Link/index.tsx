@@ -9,9 +9,7 @@ interface Props extends LinkProps {
 }
 
 export const Link: React.FC<PropsWithChildren<Props>> = props => {
-  return (
-    <NextLink {...props}>
-      <h1>logo</h1>
-    </NextLink>
-  );
+  const { children } = props;
+
+  return <NextLink {...props}>{children}</NextLink>;
 };
