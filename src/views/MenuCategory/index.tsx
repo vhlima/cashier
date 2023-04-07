@@ -1,4 +1,4 @@
-import { MenuHeader } from './components';
+import { MenuCategories, MenuHeader } from './components';
 
 interface Props {
   category: string;
@@ -10,6 +10,8 @@ export const MenuCategory: React.FC<Props> = props => {
   return (
     <div className="mt-14 px-14">
       <MenuHeader />
+
+      <MenuCategories selectedCategory={category} />
     </div>
   );
 };
