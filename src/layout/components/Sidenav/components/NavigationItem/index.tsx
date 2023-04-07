@@ -23,7 +23,7 @@ export const NavigationItem: React.FC<Props> = props => {
         },
       )}
       href={route}
-      data-testid="navigation-item"
+      data-testid={!isActive ? 'navigation-item' : 'navigation-item-active'}
     >
       <Icon
         className={clsx({
