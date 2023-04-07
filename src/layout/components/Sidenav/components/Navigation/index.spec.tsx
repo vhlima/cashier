@@ -23,4 +23,10 @@ describe('Navigation', () => {
     expect(navigationElement).toBeInTheDocument();
     expect(navigationElement.childElementCount).toEqual(navigationItems.length);
   });
+  test('Should display only one active navigation route', () => {
+    const sut = createSut();
+
+    const activeElements = sut.getAllByTestId('navigation-item-active');
+    expect(activeElements.length).toEqual(1);
+  });
 });
