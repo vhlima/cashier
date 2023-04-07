@@ -2,7 +2,7 @@ import type { IconType } from 'react-icons';
 
 import clsx from 'clsx';
 
-import { Link } from '@/components';
+import { Link, Typography } from '@/components';
 
 interface Props {
   name: string;
@@ -33,14 +33,15 @@ export const NavigationItem: React.FC<Props> = props => {
         data-testid="navigation-item-icon"
       />
 
-      <span
-        className={clsx('mt-2 text-sm', {
-          'text-grey-200': !isActive,
-        })}
+      <Typography
+        className="mt-2"
+        component="span"
+        size="sm"
+        color={!isActive ? 'secondary' : undefined}
         data-testid="navigation-item-name"
       >
         {name}
-      </span>
+      </Typography>
     </Link>
   );
 };
