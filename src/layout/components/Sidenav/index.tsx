@@ -2,7 +2,7 @@ import { Logo } from './components';
 
 export const Sidenav: React.FC = () => {
   return (
-    <div>
+    <div className="bg-white">
       <Logo />
     </div>
   );
