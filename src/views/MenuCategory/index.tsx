@@ -5,5 +5,5 @@ interface Props {
 export const MenuCategory: React.FC<Props> = props => {
   const { category } = props;
 
-  return <div></div>;
+  return <div className="mt-14 px-14"></div>;
 };
