@@ -35,4 +35,11 @@ describe('NavigationItem', () => {
     expect(iconElement).toBeInTheDocument();
     expect(iconElement.closest('svg')).not.toBeNull();
   });
+  test('Should render name correctly', () => {
+    const { sut, name } = createSut();
+
+    const nameElement = sut.getByTestId('navigation-item-name');
+    expect(nameElement).toBeInTheDocument();
+    expect(nameElement.textContent).toEqual(name);
+  });
 });
