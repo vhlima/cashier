@@ -1,13 +1,10 @@
-import type { IconType } from 'react-icons';
-
 import clsx from 'clsx';
 
 import { Link, Typography } from '@/components';
 
-interface Props {
-  name: string;
-  route: string;
-  icon: IconType;
+import type { NavigationItem as NavigationItemProps } from '../../navigationItems';
+
+interface Props extends NavigationItemProps {
   isActive?: boolean;
 }
 
