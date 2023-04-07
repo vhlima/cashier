@@ -7,6 +7,9 @@ export default {
       sans: ['Roboto', 'sans-serif'],
     },
     extend: {
+      boxShadow: {
+        pink: '0 0 16px rgba(253,155,176, 0.4)',
+      },
       colors: {
         'white-low': '#f6f6f6',
         grey: '#b5c0ca',
