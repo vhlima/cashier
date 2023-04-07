@@ -9,7 +9,7 @@ export const Navigation: React.FC = () => {
 
   return (
     <nav
-      className="mt-16 flex flex-col items-center gap-8 px-4"
+      className="flex flex-col items-center gap-8 px-4"
       data-testid="navigation"
     >
       {navigationItems.map(item => (
