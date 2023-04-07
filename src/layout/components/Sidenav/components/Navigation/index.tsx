@@ -1,28 +1,8 @@
 import { useRouter } from 'next/router';
 
-import { AiOutlineShop, AiOutlineSetting } from 'react-icons/ai';
-
-import { RiBillLine } from 'react-icons/ri';
-
 import { NavigationItem } from '../index';
 
-const navigationItems = [
-  {
-    name: 'Home',
-    route: '/',
-    icon: AiOutlineShop,
-  },
-  {
-    name: 'Bills',
-    route: '/bills',
-    icon: RiBillLine,
-  },
-  {
-    name: 'Settings',
-    route: '/settings',
-    icon: AiOutlineSetting,
-  },
-];
+import { navigationItems } from '../../navigationItems';
 
 export const Navigation: React.FC = () => {
   const { asPath } = useRouter();
