@@ -1,10 +1,13 @@
-import { type RenderResult, render } from '@testing-library/react';
+import { type RenderResult, render, fireEvent } from '@testing-library/react';
 
 import { AiFillAccountBook } from 'react-icons/ai';
 
 import { faker } from '@faker-js/faker';
 
+import { MockedRouterProvider } from 'tests/mocks';
+
 import { NavigationItem } from '.';
+import { mockedRouter } from 'tests/mocks';
 
 type SutType = {
   sut: RenderResult;
@@ -17,7 +20,9 @@ function createSut(): SutType {
   const route = `/${faker.word.adjective()}`;
 
   const sut = render(
-    <NavigationItem name={name} route={route} icon={AiFillAccountBook} />,
+    <MockedRouterProvider>
+      <NavigationItem name={name} route={route} icon={AiFillAccountBook} />
+    </MockedRouterProvider>,
   );
 
   return {
@@ -41,5 +46,13 @@ describe('NavigationItem', () => {
     const nameElement = sut.getByTestId('navigation-item-name');
     expect(nameElement).toBeInTheDocument();
     expect(nameElement.textContent).toEqual(name);
+  });
+  test('Should navigate to correct URL when clicking on navigation item', () => {
+    const { sut, route } = createSut();
+
+    const linkElement = sut.getByTestId('navigation-item');
+    fireEvent.click(linkElement);
+
+    expect(mockedRouter.asPath).toEqual(route);
   });
 });
