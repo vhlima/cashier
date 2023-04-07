@@ -9,7 +9,7 @@ export default {
         grey: '#b5c0ca',
         yellow: '#f1dbad',
         brown: '#524239',
-        red: '#dc2120',
+        red: '#ff2454',
         orange: '#dfa345',
       },
     },
