@@ -8,7 +8,10 @@ export const Navigation: React.FC = () => {
   const { asPath } = useRouter();
 
   return (
-    <nav className="mt-16 flex flex-col items-center gap-8 px-4">
+    <nav
+      className="mt-16 flex flex-col items-center gap-8 px-4"
+      data-testid="navigation"
+    >
       {navigationItems.map(item => (
         <NavigationItem
           key={`navigation-item-${item.name}`}
