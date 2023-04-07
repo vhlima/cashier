@@ -1,9 +1,14 @@
+import type { PropsWithChildren } from 'react';
+
 import type { LinkProps } from 'next/link';
+
 import NextLink from 'next/link';
 
-type Props = LinkProps;
+interface Props extends LinkProps {
+  className?: string;
+}
 
-export const Link: React.FC<Props> = props => {
+export const Link: React.FC<PropsWithChildren<Props>> = props => {
   return (
     <NextLink {...props}>
       <h1>logo</h1>
