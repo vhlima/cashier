@@ -18,6 +18,7 @@ export const MenuCategory: React.FC<Props> = props => {
         'bg-yellow': isActive,
       })}
       href={route}
+      data-testid="menu-category"
     >
       <div
         className={clsx('rounded-xl bg-white p-6', {
@@ -29,6 +30,7 @@ export const MenuCategory: React.FC<Props> = props => {
             'text-grey-300': !isActive,
           })}
           size={32}
+          data-testid="menu-category-icon"
         />
       </div>
 
@@ -36,6 +38,7 @@ export const MenuCategory: React.FC<Props> = props => {
         className="my-4"
         component="span"
         color={!isActive ? 'secondary' : undefined}
+        data-testid="menu-category-name"
       >
         {name}
       </Typography>
