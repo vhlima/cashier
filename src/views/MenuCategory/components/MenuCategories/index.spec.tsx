@@ -39,4 +39,10 @@ describe('MenuCategories', () => {
     expect(categoriesElement).toBeInTheDocument();
     expect(categoriesElement.childElementCount).toEqual(menuCategories.length);
   });
+  test('Should render only one active menu category', () => {
+    const { sut } = createSut();
+
+    const activeElements = sut.getAllByTestId('menu-category-active');
+    expect(activeElements.length).toEqual(1);
+  });
 });
