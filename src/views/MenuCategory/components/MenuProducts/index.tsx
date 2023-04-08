@@ -11,8 +11,12 @@ export const MenuProducts: React.FC<Props> = props => {
 
   return (
     <ul className="my-12 flex flex-wrap gap-12" data-testid="menu-products">
-      {products.map(product => (
-        <MenuProduct key={`menu-product-${product.name}`} {...product} />
+      {products.map((product, index) => (
+        <MenuProduct
+          key={`menu-product-${product.name}`}
+          displayOrder={index}
+          {...product}
+        />
       ))}
     </ul>
   );
