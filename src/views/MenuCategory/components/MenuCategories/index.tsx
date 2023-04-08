@@ -15,7 +15,7 @@ export const MenuCategories: React.FC<Props> = props => {
         <MenuCategory
           key={`menu-category-${category.name}`}
           displayOrder={index}
-          isActive={selectedCategory === category.name}
+          isActive={selectedCategory === category.id}
           {...category}
         />
       ))}
