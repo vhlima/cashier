@@ -12,6 +12,7 @@ import {
 } from 'react-icons/ci';
 
 export type Category = {
+  id: string;
   name: string;
   route: string;
   icon: IconType;
@@ -19,38 +20,45 @@ export type Category = {
 
 export const menuCategories: Category[] = [
   {
+    id: 'hot',
     name: 'Hot',
     icon: AiOutlineFire,
     route: '/',
   },
   {
+    id: 'burgers',
     name: 'Burger',
     icon: CiBurger,
-    route: '/burger',
+    route: '/menu/burgers',
   },
   {
+    id: 'pizzas',
     name: 'Pizza',
     icon: CiPizza,
-    route: '/pizza',
+    route: '/menu/pizzas',
   },
   {
+    id: 'snacks',
     name: 'Snack',
     icon: CiFries,
-    route: '/snack',
+    route: '/menu/snacks',
   },
   {
+    id: 'drinks',
     name: 'Soft Drink',
     icon: CiGlass,
-    route: '/drink',
+    route: '/menu/drinks',
   },
   {
+    id: 'coffees',
     name: 'Coffee',
     icon: CiCoffeeCup,
-    route: '/coffee',
+    route: '/menu/coffees',
   },
   {
+    id: 'ice-creams',
     name: 'Ice Cream',
     icon: CiIceCream,
-    route: '/ice-cream',
+    route: '/menu/ice-creams',
   },
 ];
