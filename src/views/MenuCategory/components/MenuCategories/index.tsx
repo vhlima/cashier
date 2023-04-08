@@ -11,9 +11,10 @@ export const MenuCategories: React.FC<Props> = props => {
 
   return (
     <nav className="my-12 flex gap-8" data-testid="menu-categories">
-      {menuCategories.map(category => (
+      {menuCategories.map((category, index) => (
         <MenuCategory
           key={`menu-category-${category.name}`}
+          displayOrder={index}
           isActive={selectedCategory === category.name}
           {...category}
         />
