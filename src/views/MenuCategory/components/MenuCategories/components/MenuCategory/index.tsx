@@ -18,7 +18,7 @@ export const MenuCategory: React.FC<Props> = props => {
         'bg-yellow': isActive,
       })}
       href={route}
-      data-testid="menu-category"
+      data-testid={!isActive ? 'menu-category' : 'menu-category-active'}
     >
       <div
         className={clsx('rounded-xl bg-white p-6', {
