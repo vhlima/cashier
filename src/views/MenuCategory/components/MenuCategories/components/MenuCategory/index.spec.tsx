@@ -4,6 +4,8 @@ import { AiFillAccountBook } from 'react-icons/ai';
 
 import { faker } from '@faker-js/faker';
 
+import { MockedRouterProvider } from 'tests/mocks';
+
 import { MenuCategory } from '.';
 
 type SutType = {
@@ -17,7 +19,9 @@ function createSut(): SutType {
   const route = `/${faker.word.adjective()}`;
 
   const sut = render(
-    <MenuCategory name={name} route={route} icon={AiFillAccountBook} />,
+    <MockedRouterProvider>
+      <MenuCategory name={name} route={route} icon={AiFillAccountBook} />
+    </MockedRouterProvider>,
   );
 
   return {
@@ -41,5 +45,12 @@ describe('MenuCategory', () => {
     const nameElement = sut.getByTestId('menu-category-name');
     expect(nameElement).toBeInTheDocument();
     expect(nameElement.textContent).toEqual(name);
+  });
+  test('Should render menu category link correctly', () => {
+    const { sut } = createSut();
+
+    const linkElement = sut.getByTestId('menu-category');
+    expect(linkElement).toBeInTheDocument();
+    expect(linkElement.closest('a')).not.toBeNull();
   });
 });
