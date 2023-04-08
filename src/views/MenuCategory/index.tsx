@@ -1,4 +1,11 @@
-import { MenuCategories, MenuHeader, MenuProductsHeader } from './components';
+import {
+  MenuCategories,
+  MenuHeader,
+  MenuProducts,
+  MenuProductsHeader,
+} from './components';
+
+import { products } from './components/MenuProducts/products';
 
 interface Props {
   category: string;
@@ -14,6 +21,8 @@ export const MenuCategory: React.FC<Props> = props => {
       <MenuCategories selectedCategory={category} />
 
       <MenuProductsHeader />
+
+      <MenuProducts products={products} />
     </div>
   );
 };
