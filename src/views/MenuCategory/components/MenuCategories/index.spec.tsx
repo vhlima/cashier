@@ -8,7 +8,7 @@ import { MenuCategories } from '.';
 
 type SutType = {
   sut: RenderResult;
-  selectedCategoryName: string;
+  selectedCategoryId: string;
 };
 
 function createSut(): SutType {
@@ -21,13 +21,11 @@ function createSut(): SutType {
     throw new Error('Menu categories cannot be empty.');
   }
 
-  const sut = render(
-    <MenuCategories selectedCategory={selectedCategory.name} />,
-  );
+  const sut = render(<MenuCategories selectedCategory={selectedCategory.id} />);
 
   return {
     sut,
-    selectedCategoryName: selectedCategory.name,
+    selectedCategoryId: selectedCategory.id,
   };
 }
 
@@ -42,7 +40,7 @@ describe('MenuCategories', () => {
   test('Should render only one active menu category', () => {
     const { sut } = createSut();
 
-    const activeElements = sut.getAllByTestId('menu-category-active');
+    const activeElements = sut.queryAllByTestId('menu-category-active');
     expect(activeElements.length).toEqual(1);
   });
 });

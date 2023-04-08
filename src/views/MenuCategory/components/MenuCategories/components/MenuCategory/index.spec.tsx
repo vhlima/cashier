@@ -21,6 +21,7 @@ function createSut(): SutType {
   const sut = render(
     <MockedRouterProvider>
       <MenuCategory
+        id={faker.datatype.uuid()}
         name={name}
         route={route}
         displayOrder={0}
