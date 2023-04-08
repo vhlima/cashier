@@ -20,7 +20,12 @@ function createSut(): SutType {
 
   const sut = render(
     <MockedRouterProvider>
-      <MenuCategory name={name} route={route} icon={AiFillAccountBook} />
+      <MenuCategory
+        name={name}
+        route={route}
+        displayOrder={0}
+        icon={AiFillAccountBook}
+      />
     </MockedRouterProvider>,
   );
 
@@ -49,14 +54,14 @@ describe('MenuCategory', () => {
   test('Should render menu category link correctly', () => {
     const { sut } = createSut();
 
-    const linkElement = sut.getByTestId('menu-category');
+    const linkElement = sut.getByTestId('menu-category-link');
     expect(linkElement).toBeInTheDocument();
     expect(linkElement.closest('a')).not.toBeNull();
   });
   test('Should navigate to the correct URL when clicking menu category', () => {
     const { sut, route } = createSut();
 
-    const linkElement = sut.getByTestId('menu-category');
+    const linkElement = sut.getByTestId('menu-category-link');
     fireEvent.click(linkElement);
 
     expect(mockedRouter.asPath).toEqual(route);
