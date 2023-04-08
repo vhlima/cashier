@@ -27,14 +27,18 @@ export const MenuCategory: React.FC<Props> = props => {
 
   return (
     <motion.div
-      className={clsx('flex flex-col items-center rounded-xl p-2', {
+      className={clsx('rounded-xl p-2', {
         'bg-white': !isActive,
         'bg-yellow': isActive,
       })}
       data-testid={!isActive ? 'menu-category' : 'menu-category-active'}
       {...animationProps}
     >
-      <Link href={route} data-testid="menu-category-link">
+      <Link
+        className="flex flex-col items-center"
+        href={route}
+        data-testid="menu-category-link"
+      >
         <div
           className={clsx('rounded-xl bg-white p-6', {
             'border border-grey': !isActive,
