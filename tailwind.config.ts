@@ -15,6 +15,7 @@ export default {
         grey: '#b5c0ca',
         'grey-200': '#babdc4',
         'grey-300': '#afb3bb',
+        'yellow-100': '#fdf3da',
         yellow: '#f1dbad',
         brown: '#524239',
         red: '#ff2454',
