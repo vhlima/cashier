@@ -9,7 +9,7 @@ const Layout: React.FC<PropsWithChildren> = props => {
     <div className="flex h-screen w-screen bg-white-low">
       <Sidenav />
 
-      <main className="w-full">{children}</main>
+      <main className="w-full overflow-y-auto">{children}</main>
     </div>
   );
 };
