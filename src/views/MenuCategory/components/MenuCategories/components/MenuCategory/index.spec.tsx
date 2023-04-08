@@ -1,10 +1,10 @@
-import { type RenderResult, render } from '@testing-library/react';
+import { type RenderResult, render, fireEvent } from '@testing-library/react';
 
 import { AiFillAccountBook } from 'react-icons/ai';
 
 import { faker } from '@faker-js/faker';
 
-import { MockedRouterProvider } from 'tests/mocks';
+import { MockedRouterProvider, mockedRouter } from 'tests/mocks';
 
 import { MenuCategory } from '.';
 
@@ -52,5 +52,13 @@ describe('MenuCategory', () => {
     const linkElement = sut.getByTestId('menu-category');
     expect(linkElement).toBeInTheDocument();
     expect(linkElement.closest('a')).not.toBeNull();
+  });
+  test('Should navigate to the correct URL when clicking menu category', () => {
+    const { sut, route } = createSut();
+
+    const linkElement = sut.getByTestId('menu-category');
+    fireEvent.click(linkElement);
+
+    expect(mockedRouter.asPath).toEqual(route);
   });
 });
