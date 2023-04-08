@@ -35,4 +35,11 @@ describe('MenuCategory', () => {
     expect(iconElement).toBeInTheDocument();
     expect(iconElement.closest('svg')).not.toBeNull();
   });
+  test('Should render menu category name correctly', () => {
+    const { sut, name } = createSut();
+
+    const nameElement = sut.getByTestId('menu-category-name');
+    expect(nameElement).toBeInTheDocument();
+    expect(nameElement.textContent).toEqual(name);
+  });
 });
