@@ -14,7 +14,7 @@ export const NavigationItem: React.FC<Props> = props => {
   return (
     <Link
       className={clsx(
-        'flex w-fit flex-col items-center justify-center rounded-xl px-6 py-2',
+        'flex w-full flex-col items-center justify-center rounded-xl px-4 py-2',
         {
           'bg-red text-white shadow-pink': isActive,
         },
