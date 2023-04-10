@@ -10,8 +10,58 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id        String   @id @default(cuid())
+model ProductType {
+    id String @id @default(cuid())
+    displayName String @unique @map("display_name")
+
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+
+    products Product[]
+    productOptions ProductOption[]
+}
+
+model Product {
+    id String @id @default(cuid())
+    name String // cheeseburguer with bacon
+    price Int
+    imageUrl String @map("image_url")
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    productTypeId String @map("product_type_id")
+    productType ProductType @relation(fields: [productTypeId], references: [id]) 
+
+    productVariants ProductVariant[]
+}
+
+model ProductOption {
+    id String @id @default(cuid())
+    name String // size, toppings
+    minOptions Int @map("min_options") // min 1 size, min 0 toppings
+    maxOptions Int? @map("max_options") // max 1 size, max 3 toppings
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    productTypeId String @map("product_type_id")
+    productType ProductType @relation(fields: [productTypeId], references: [id])
+
+    variants ProductVariant[]
+}
+
+model ProductVariant {
+    id String @id @default(cuid())
+    name String // small, 600ml, 300ml, cheese, bacon
+    price Int
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    productOptionId String @map("product_option_id")
+    productOption ProductOption @relation(fields: [productOptionId], references: [id])
+
+    productId String @map("product_id")
+    product Product @relation(fields: [productId], references: [id])
 }
