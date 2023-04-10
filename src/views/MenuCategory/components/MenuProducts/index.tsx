@@ -1,6 +1,6 @@
 import { MenuProduct } from './components';
 
-import type { Product } from './products';
+import type { Product } from '@prisma/client';
 
 interface Props {
   products: Product[];
