@@ -2,17 +2,18 @@ import { motion, type HTMLMotionProps } from 'framer-motion';
 
 import { isBrowser } from '@/utils';
 
-import type { Product } from '../../products';
-
 import { NewProductTag, ProductDetails, ProductImage } from './components';
 
-interface Props extends Product {
+interface Props {
+  name: string;
+  price: number;
+  imageUrl: string;
   displayOrder: number;
   isNew?: boolean;
 }
 
 export const MenuProduct: React.FC<Props> = props => {
-  const { displayOrder, name, price, displayImageUrl, isNew } = props;
+  const { displayOrder, name, price, imageUrl, isNew } = props;
 
   const animationProps: HTMLMotionProps<'li'> = isBrowser()
     ? {
@@ -31,7 +32,7 @@ export const MenuProduct: React.FC<Props> = props => {
     >
       {isNew && <NewProductTag />}
 
-      <ProductImage src={displayImageUrl} alt={name} />
+      <ProductImage src={imageUrl} alt={name} />
 
       <ProductDetails name={name} price={price} />
     </motion.li>
