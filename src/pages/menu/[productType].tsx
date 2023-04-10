@@ -7,15 +7,15 @@ export const getServerSideProps: GetServerSideProps = async context => {
   const { query } = context;
 
   try {
-    const category = query['category'];
+    const productType = query['productType'];
 
-    if (!category) {
-      throw new Error('Category not found.');
+    if (!productType) {
+      throw new Error('Product type not found.');
     }
 
     return {
       props: {
-        category,
+        productType,
       },
     };
   } catch (err) {
@@ -26,12 +26,12 @@ export const getServerSideProps: GetServerSideProps = async context => {
 };
 
 interface Props {
-  category: string;
+  productType: string;
 }
 
 const ProductCategoryPage: NextPage<Props> = props => {
-  const { category } = props;
-  return <MenuCategory category={category} />;
+  const { productType } = props;
+  return <MenuCategory category={productType} />;
 };
 
 export default ProductCategoryPage;
