@@ -12,7 +12,7 @@ datasource db {
 
 model ProductType {
     id String @id @default(cuid())
-    displayName String @unique @map("display_name")
+    name String @unique 
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
