@@ -2,7 +2,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 
 export const SearchBar: React.FC = () => {
   return (
-    <div className="flex w-full rounded-md bg-white p-2 md:max-w-sm">
+    <div className="flex w-full rounded-md bg-white p-2 shadow-sm md:max-w-sm">
       <AiOutlineSearch className="text-grey-300" size={28} />
 
       <input

@@ -27,7 +27,7 @@ export const MenuCategory: React.FC<Props> = props => {
 
   return (
     <motion.div
-      className={clsx('rounded-xl p-2', {
+      className={clsx('rounded-xl p-2 shadow-sm', {
         'bg-white': !isActive,
         'bg-yellow': isActive,
       })}
