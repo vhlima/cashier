@@ -1,21 +1,63 @@
-import type { GetServerSideProps, NextPage } from 'next';
+import type {
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage,
+} from 'next';
 
 import { MenuCategory } from '@/views';
 
-/* eslint-disable @typescript-eslint/require-await */
-export const getServerSideProps: GetServerSideProps = async context => {
+import superjson from 'superjson';
+
+import { createServerSideHelpers } from '@trpc/react-query/server';
+
+import { appRouter } from '@/server/api/root';
+
+import { prisma } from '@/server/db';
+
+interface GetServerSidePropsData {
+  productTypeName: string;
+}
+
+export const getServerSideProps: GetServerSideProps<
+  GetServerSidePropsData
+> = async context => {
   const { query } = context;
 
   try {
-    const productType = query['productType'];
+    const productTypeName = query['productType'] as string;
 
-    if (!productType) {
+    if (!productTypeName) {
       throw new Error('Product type not found.');
     }
 
+    const helper = createServerSideHelpers({
+      router: appRouter,
+      ctx: {
+        prisma,
+      },
+      transformer: superjson,
+    });
+
+    const productTypeExists = await helper.product.getProductTypeByName.fetch({
+      productTypeName,
+    });
+
+    if (!productTypeExists) {
+      throw new Error('Product type not found');
+    }
+
+    await helper.product.getAllByTypeId.prefetch({
+      productTypeId: productTypeExists.id,
+    });
+
+    await helper.product.getProductTypeByName.prefetch({
+      productTypeName,
+    });
+
     return {
       props: {
-        productType,
+        productTypeName,
+        trpcState: helper.dehydrate(),
       },
     };
   } catch (err) {
@@ -25,13 +67,12 @@ export const getServerSideProps: GetServerSideProps = async context => {
   }
 };
 
-interface Props {
-  productType: string;
-}
+type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 const ProductCategoryPage: NextPage<Props> = props => {
-  const { productType } = props;
-  return <MenuCategory category={productType} />;
+  const { productTypeName } = props;
+
+  return <MenuCategory productTypeName={productTypeName} />;
 };
 
 export default ProductCategoryPage;

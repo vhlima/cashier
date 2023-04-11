@@ -1,17 +1,25 @@
+import { api } from '@/utils/api';
+
 import { MenuProduct } from './components';
 
-import type { Product } from '@prisma/client';
-
 interface Props {
-  products: Product[];
+  productTypeId: string;
 }
 
 export const MenuProducts: React.FC<Props> = props => {
-  const { products } = props;
+  const { productTypeId } = props;
+
+  const { data: productsData } = api.product.getAllByTypeId.useQuery({
+    productTypeId,
+  });
+
+  if (!productsData) {
+    return null;
+  }
 
   return (
     <ul className="my-12 flex flex-wrap gap-12" data-testid="menu-products">
-      {products.map((product, index) => (
+      {productsData.map((product, index) => (
         <MenuProduct
           key={`menu-product-${product.name}`}
           displayOrder={index}

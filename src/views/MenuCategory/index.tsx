@@ -1,28 +1,41 @@
+import { api } from '@/utils/api';
+
 import {
   MenuCategories,
   MenuHeader,
   MenuProducts,
   MenuProductsHeader,
+  ShoppingCart,
 } from './components';
 
-import { products } from './components/MenuProducts/products';
-
 interface Props {
-  category: string;
+  productTypeName: string;
 }
 
 export const MenuCategory: React.FC<Props> = props => {
-  const { category } = props;
+  const { productTypeName } = props;
+
+  const { data: productTypeData } = api.product.getProductTypeByName.useQuery({
+    productTypeName,
+  });
+
+  if (!productTypeData) {
+    return null;
+  }
 
   return (
-    <div className="mt-14 px-14">
-      <MenuHeader />
+    <div className="flex">
+      <div className="mt-14 px-14">
+        <MenuHeader />
 
-      <MenuCategories selectedCategory={category} />
+        <MenuCategories selectedCategory={productTypeData.name} />
 
-      <MenuProductsHeader />
+        <MenuProductsHeader />
 
-      <MenuProducts products={products} />
+        <MenuProducts productTypeId={productTypeData.id} />
+      </div>
+
+      <ShoppingCart />
     </div>
   );
 };
