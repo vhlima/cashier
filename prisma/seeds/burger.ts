@@ -9,7 +9,7 @@ import {
 export async function createBurgers(client: PrismaClient): Promise<void> {
   const burgerProductType = await client.productType.create({
     data: {
-      displayName: 'Burger',
+      name: 'burger',
     },
   });
 
@@ -25,7 +25,8 @@ export async function createBurgers(client: PrismaClient): Promise<void> {
 
   const burger = await createBurger(client, burgerProductType.id, {
     name: 'Big Mac',
-    imageUrl: '',
+    imageUrl:
+      'https://cache-backend-mcd.mcdonaldscupones.com/media/image/product$kzXCTbnv/200/200/original?country=br',
     price: 0,
   });
 

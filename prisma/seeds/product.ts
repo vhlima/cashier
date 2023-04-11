@@ -7,22 +7,22 @@ import {
 
 export const productTypes: Prisma.ProductTypeCreateInput[] = [
   {
-    displayName: 'Burger',
+    name: 'burger',
   },
   {
-    displayName: 'Pizza',
+    name: 'pizza',
   },
   {
-    displayName: 'Snack',
+    name: 'snack',
   },
   {
-    displayName: 'Soft Drink',
+    name: 'soft-drink',
   },
   {
-    displayName: 'Coffee',
+    name: 'coffee',
   },
   {
-    displayName: 'Ice Cream',
+    name: 'ice-cream',
   },
 ];
 
