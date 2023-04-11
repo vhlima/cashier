@@ -26,7 +26,7 @@ export const MenuProduct: React.FC<Props> = props => {
 
   return (
     <motion.li
-      className="relative flex flex-col items-center rounded-md bg-white p-4 shadow-sm"
+      className="relative flex flex-col items-center rounded-md p-4"
       data-testid="menu-product"
       {...animationProps}
     >
