@@ -27,15 +27,17 @@ export const MenuProduct: React.FC<Props> = props => {
 
   return (
     <motion.li
-      className="relative flex gap-4 rounded-sm border border-gray-100 bg-white p-4 shadow-sm hover:border-gray-200"
+      className="relative rounded-sm border border-gray-100 bg-white shadow-sm hover:border-gray-200"
       data-testid="menu-product"
       {...animationProps}
     >
       {isNew && <NewProductTag />}
 
-      <ProductImage src={imageUrl} alt={name} />
+      <button className="flex gap-4 p-4" type="button">
+        <ProductImage src={imageUrl} alt={name} />
 
-      <ProductDetails name={name} description={description} price={price} />
+        <ProductDetails name={name} description={description} price={price} />
+      </button>
     </motion.li>
   );
 };
