@@ -22,11 +22,7 @@ export const ProductDetails: React.FC<Props> = props => {
 
       <Typography component="p">{description}</Typography>
 
-      <Typography
-        className="mt-auto block text-start"
-        component="span"
-        size="lg"
-      >
+      <Typography className="mt-4 block text-start" component="span" size="lg">
         $<span data-testid="menu-product-price">{price}</span>
       </Typography>
     </div>
