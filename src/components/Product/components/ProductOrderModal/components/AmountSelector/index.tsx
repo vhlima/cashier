@@ -1,10 +1,12 @@
-import { type HTMLAttributes, useState } from 'react';
+import { type HTMLAttributes } from 'react';
 
 import clsx from 'clsx';
 
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 
 import { Typography } from '@/components';
+
+import { useProductOrder } from '../../hooks';
 
 import { AmountSelectorButton } from './components';
 
@@ -13,7 +15,7 @@ type Props = HTMLAttributes<HTMLDivElement>;
 export const AmountSelector: React.FC<Props> = props => {
   const { className, ...rest } = props;
 
-  const [amount, setAmount] = useState<number>(1);
+  const { quantity, increase, decrease } = useProductOrder();
 
   return (
     <div
@@ -25,18 +27,18 @@ export const AmountSelector: React.FC<Props> = props => {
     >
       <AmountSelectorButton
         icon={AiOutlineMinus}
-        onClick={() => setAmount(previous => previous - 1)}
-        disabled={amount === 1}
+        onClick={decrease}
+        disabled={quantity === 1}
       />
 
       <Typography className="px-2" component="span" size="lg">
-        {amount}
+        {quantity}
       </Typography>
 
       <AmountSelectorButton
         icon={AiOutlinePlus}
-        onClick={() => setAmount(previous => previous + 1)}
-        disabled={amount === 10}
+        onClick={increase}
+        disabled={quantity === 10}
       />
     </div>
   );
