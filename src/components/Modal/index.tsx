@@ -17,7 +17,8 @@ export const Modal: React.FC<PropsWithChildren<Props>> = props => {
     <div
       className={clsx(
         {
-          'absolute left-1/2 top-1/4 -translate-x-1/2 transform': center,
+          'absolute h-full w-full lg:left-1/2 lg:top-1/4 lg:h-fit lg:max-w-screen-lg lg:-translate-x-1/2 lg:transform':
+            center,
         },
         className && className,
       )}
