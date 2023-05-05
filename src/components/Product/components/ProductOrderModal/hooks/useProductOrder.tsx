@@ -15,7 +15,7 @@ export const ProductOrderContextProvider: React.FC<
 > = props => {
   const { children } = props;
 
-  const quantitySelector = useQuantitySelector();
+  const quantitySelector = useQuantitySelector(1);
 
   return (
     <ProductOrderContext.Provider value={{ ...quantitySelector }}>
