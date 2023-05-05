@@ -27,7 +27,7 @@ export const MenuProduct: React.FC<Props> = props => {
 
   return (
     <motion.li
-      className="relative flex gap-4 rounded-sm bg-white p-4 shadow-sm"
+      className="relative flex gap-4 rounded-sm border border-gray-100 bg-white p-4 shadow-sm hover:border-gray-200"
       data-testid="menu-product"
       {...animationProps}
     >
