@@ -10,7 +10,7 @@ export const ProductDetails: React.FC<Props> = props => {
   const { name, description, price } = props;
 
   return (
-    <>
+    <div className="flex flex-col">
       <Typography
         className="font-medium"
         component="span"
@@ -22,9 +22,9 @@ export const ProductDetails: React.FC<Props> = props => {
 
       <Typography component="p">{description}</Typography>
 
-      <Typography component="span" color="secondary">
+      <Typography className="mt-auto block" component="span" size="lg">
         $<span data-testid="menu-product-price">{price}</span>
       </Typography>
-    </>
+    </div>
   );
 };
