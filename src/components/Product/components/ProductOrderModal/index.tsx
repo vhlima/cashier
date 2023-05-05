@@ -13,6 +13,7 @@ import {
   AmountSelector,
   SpecialInstructions,
 } from './components';
+import { ProductOrderContextProvider } from './hooks';
 
 interface Props {
   onClose: () => void;
@@ -45,11 +46,13 @@ export const ProductOrderModal: React.FC<Props> = props => {
 
           <SpecialInstructions />
 
-          <div className="mt-4 grid grid-rows-2 gap-4 lg:grid-cols-2">
-            <AmountSelector className="w-full" />
+          <ProductOrderContextProvider>
+            <div className="mt-4 grid grid-rows-2 gap-4 lg:grid-cols-2">
+              <AmountSelector className="w-full" />
 
-            <AddToCartButton />
-          </div>
+              <AddToCartButton />
+            </div>
+          </ProductOrderContextProvider>
         </div>
       </div>
     </Modal>
