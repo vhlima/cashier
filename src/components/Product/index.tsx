@@ -1,9 +1,8 @@
-import {
-  NewProductTag,
-  ProductDetails,
-  ProductImage,
-  ProductInfoButton,
-} from './components';
+import { NewProductTag, ProductDetails, ProductImage } from './components';
+
+import { ProductContextProvider, useProductModal } from './hooks';
+
+import { ProductInfoModal } from './components';
 
 interface Props {
   name: string;
@@ -14,7 +13,11 @@ interface Props {
 }
 
 export const Product: React.FC<Props> = props => {
-  const { name, description, price, imageUrl, isNew } = props;
+  const { isNew, ...product } = props;
+
+  const { name, imageUrl } = product;
+
+  const { isModalOpen, openModal, closeModal } = useProductModal();
 
   return (
     <div
@@ -23,11 +26,15 @@ export const Product: React.FC<Props> = props => {
     >
       {isNew && <NewProductTag />}
 
-      <ProductInfoButton className="flex gap-4 p-4" type="button">
-        <ProductImage src={imageUrl} alt={name} />
+      <ProductContextProvider product={product}>
+        {isModalOpen && <ProductInfoModal onClose={closeModal} />}
 
-        <ProductDetails name={name} description={description} price={price} />
-      </ProductInfoButton>
+        <button className="flex gap-4 p-4" onClick={openModal}>
+          <ProductImage src={imageUrl} alt={name} />
+
+          <ProductDetails {...product} />
+        </button>
+      </ProductContextProvider>
     </div>
   );
 };
