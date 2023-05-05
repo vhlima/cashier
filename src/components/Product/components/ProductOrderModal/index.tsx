@@ -7,14 +7,11 @@ import { ProductDetails } from '../ProductDetails';
 import { useProduct } from '../../hooks/useProduct';
 
 import {
-  AddToCartButton,
-  AmountSelector,
   Header,
   ProductOptions,
+  ProductOrderControls,
   SpecialInstructions,
 } from './components';
-
-import { ProductOrderContextProvider, useQuantitySelector } from './hooks';
 
 interface Props {
   onClose: () => void;
@@ -26,8 +23,6 @@ export const ProductOrderModal: React.FC<Props> = props => {
   const { product } = useProduct();
 
   const { name, imageUrl } = product;
-
-  const quantitySelector = useQuantitySelector(1);
 
   return (
     <Modal className="rounded-md bg-white" center onClickBackdrop={onClose}>
@@ -43,19 +38,7 @@ export const ProductOrderModal: React.FC<Props> = props => {
 
           <SpecialInstructions />
 
-          <ProductOrderContextProvider>
-            <div className="mt-4 grid grid-rows-2 gap-4 lg:grid-cols-2">
-              <AmountSelector
-                className="w-full border border-gray-200"
-                {...quantitySelector}
-              />
-
-              <AddToCartButton
-                productPrice={product.price}
-                quantity={quantitySelector.quantity}
-              />
-            </div>
-          </ProductOrderContextProvider>
+          <ProductOrderControls productPrice={product.price} />
         </div>
       </div>
     </Modal>
