@@ -21,6 +21,8 @@ export const Modal: React.FC<PropsWithChildren<Props>> = props => {
         },
         className && className,
       )}
+      role="presentation"
+      onClick={e => e.stopPropagation()}
       {...rest}
     >
       {children}
