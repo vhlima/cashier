@@ -6,11 +6,15 @@ const Layout: React.FC<PropsWithChildren> = props => {
   const { children } = props;
 
   return (
-    <div className="flex h-screen w-screen bg-white-low">
-      <Sidenav />
+    <>
+      <div className="relative" id="modals" />
 
-      <main className="w-full overflow-y-auto">{children}</main>
-    </div>
+      <div className="flex h-screen w-screen bg-white-low">
+        <Sidenav />
+
+        <main className="w-full overflow-y-auto">{children}</main>
+      </div>
+    </>
   );
 };
 
