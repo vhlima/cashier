@@ -8,7 +8,7 @@ import { ProductDetails } from '../ProductDetails';
 
 import { useProduct } from '../../hooks/useProduct';
 
-import { SpecialInstructions } from './components';
+import { AmountSelector, SpecialInstructions } from './components';
 
 interface Props {
   onClose: () => void;
@@ -40,6 +40,10 @@ export const ProductOrderModal: React.FC<Props> = props => {
           <ProductDetails {...product} />
 
           <SpecialInstructions />
+
+          <div>
+            <AmountSelector className="w-full" />
+          </div>
         </div>
       </div>
     </Modal>
