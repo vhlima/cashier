@@ -45,7 +45,7 @@ export const ProductOrderModal: React.FC<Props> = props => {
 
           <SpecialInstructions />
 
-          <div>
+          <div className="mt-4 grid grid-rows-2 gap-4 lg:grid-cols-2">
             <AmountSelector className="w-full" />
 
             <AddToCartButton />
