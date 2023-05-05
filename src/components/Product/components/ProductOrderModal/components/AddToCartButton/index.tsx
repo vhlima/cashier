@@ -1,12 +1,25 @@
 import { type ButtonHTMLAttributes } from 'react';
 
 import clsx from 'clsx';
-import { Typography } from '@/components/Typography';
+
+import { Typography } from '@/components';
+
+import { useProduct } from '@/components/Product/hooks';
+
+import { useProductOrder } from '../../hooks';
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const AddToCartButton: React.FC<Props> = props => {
   const { className, ...rest } = props;
+
+  const { quantity } = useProductOrder();
+
+  const { product } = useProduct();
+
+  function calculateTotal() {
+    return product.price * quantity;
+  }
 
   return (
     <button
@@ -17,7 +30,7 @@ export const AddToCartButton: React.FC<Props> = props => {
       {...rest}
     >
       <Typography className="font-bold text-white" component="span">
-        Add to cart&nbsp;($40)
+        Add to cart&nbsp;(${calculateTotal()})
       </Typography>
     </button>
   );
