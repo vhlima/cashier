@@ -8,7 +8,11 @@ import { ProductDetails } from '../ProductDetails';
 
 import { useProduct } from '../../hooks/useProduct';
 
-import { AmountSelector, SpecialInstructions } from './components';
+import {
+  AddToCartButton,
+  AmountSelector,
+  SpecialInstructions,
+} from './components';
 
 interface Props {
   onClose: () => void;
@@ -43,6 +47,8 @@ export const ProductOrderModal: React.FC<Props> = props => {
 
           <div>
             <AmountSelector className="w-full" />
+
+            <AddToCartButton />
           </div>
         </div>
       </div>
