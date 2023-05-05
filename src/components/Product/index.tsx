@@ -2,7 +2,7 @@ import { NewProductTag, ProductDetails, ProductImage } from './components';
 
 import { ProductContextProvider, useProductModal } from './hooks';
 
-import { ProductInfoModal } from './components';
+import { ProductOrderModal } from './components';
 
 interface Props {
   name: string;
@@ -27,7 +27,7 @@ export const Product: React.FC<Props> = props => {
       {isNew && <NewProductTag />}
 
       <ProductContextProvider product={product}>
-        {isModalOpen && <ProductInfoModal onClose={closeModal} />}
+        {isModalOpen && <ProductOrderModal onClose={closeModal} />}
 
         <button className="flex gap-4 p-4" onClick={openModal}>
           <ProductImage src={imageUrl} alt={name} />
