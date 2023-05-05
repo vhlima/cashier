@@ -6,6 +6,7 @@ import { NewProductTag, ProductDetails, ProductImage } from './components';
 
 interface Props {
   name: string;
+  description: string;
   price: number;
   imageUrl: string;
   displayOrder: number;
@@ -13,7 +14,7 @@ interface Props {
 }
 
 export const MenuProduct: React.FC<Props> = props => {
-  const { displayOrder, name, price, imageUrl, isNew } = props;
+  const { displayOrder, name, description, price, imageUrl, isNew } = props;
 
   const animationProps: HTMLMotionProps<'li'> = isBrowser()
     ? {
@@ -26,7 +27,7 @@ export const MenuProduct: React.FC<Props> = props => {
 
   return (
     <motion.li
-      className="relative flex flex-col items-center rounded-md p-4"
+      className="relative flex rounded-md p-4"
       data-testid="menu-product"
       {...animationProps}
     >
@@ -34,7 +35,7 @@ export const MenuProduct: React.FC<Props> = props => {
 
       <ProductImage src={imageUrl} alt={name} />
 
-      <ProductDetails name={name} price={price} />
+      <ProductDetails name={name} description={description} price={price} />
     </motion.li>
   );
 };

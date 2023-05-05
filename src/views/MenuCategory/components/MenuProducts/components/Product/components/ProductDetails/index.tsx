@@ -2,11 +2,12 @@ import { Typography } from '@/components';
 
 interface Props {
   name: string;
+  description: string;
   price: number;
 }
 
 export const ProductDetails: React.FC<Props> = props => {
-  const { name, price } = props;
+  const { name, description, price } = props;
 
   return (
     <>
@@ -18,6 +19,8 @@ export const ProductDetails: React.FC<Props> = props => {
       >
         {name}
       </Typography>
+
+      <Typography component="p">{description}</Typography>
 
       <Typography component="span" color="secondary">
         $<span data-testid="menu-product-price">{price}</span>
