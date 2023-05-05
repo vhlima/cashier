@@ -8,6 +8,8 @@ import { ProductDetails } from '../ProductDetails';
 
 import { useProduct } from '../../hooks/useProduct';
 
+import { SpecialInstructions } from './components';
+
 interface Props {
   onClose: () => void;
 }
@@ -20,9 +22,9 @@ export const ProductOrderModal: React.FC<Props> = props => {
   const { name, imageUrl } = product;
 
   return (
-    <Modal className="rounded-md bg-white p-4" center onClickBackdrop={onClose}>
-      <div className="relative flex items-center justify-center">
-        <button className="absolute left-0" onClick={onClose}>
+    <Modal className="rounded-md bg-white" center onClickBackdrop={onClose}>
+      <div className="relative my-4 flex items-center justify-center">
+        <button className="absolute left-2" onClick={onClose}>
           <BsChevronLeft className="text-red" size={30} />
         </button>
 
@@ -31,10 +33,14 @@ export const ProductOrderModal: React.FC<Props> = props => {
         </Typography>
       </div>
 
-      <div className="mt-4 flex flex-col gap-4 lg:flex-row">
+      <div className="flex flex-col gap-4 px-4 lg:flex-row">
         <ProductImage size="lg" src={imageUrl} alt={name} />
 
-        <ProductDetails {...product} />
+        <div className="">
+          <ProductDetails {...product} />
+
+          <SpecialInstructions />
+        </div>
       </div>
     </Modal>
   );
