@@ -6,7 +6,7 @@ import { AmountSelector } from '../../../AmountSelector';
 
 interface Props {
   name: string;
-  description: string;
+  description: string | null;
   price: number;
 }
 
@@ -19,9 +19,13 @@ export const ProductOption: React.FC<Props> = props => {
     <li className="flex items-center justify-between border-b border-b-gray-200 py-4 last-of-type:border-b-0">
       <div className="flex flex-col">
         <Typography component="span">{name}</Typography>
-        <Typography component="span" size="sm">
-          {description}
-        </Typography>
+
+        {description && (
+          <Typography component="span" size="sm">
+            {description}
+          </Typography>
+        )}
+
         <Typography component="span">+ ${price}</Typography>
       </div>
 
