@@ -6,10 +6,12 @@ import { api } from '@/utils/api';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   productId: string;
+  activeSection: number;
+  addOptionReference: (ref: HTMLDivElement | null) => void;
 }
 
 export const ProductOptions: React.FC<Props> = props => {
-  const { productId } = props;
+  const { productId, activeSection, addOptionReference } = props;
 
   const { data, isLoading } = api.product.getProductOptions.useQuery({
     productId,
@@ -21,8 +23,13 @@ export const ProductOptions: React.FC<Props> = props => {
 
   return (
     <div>
-      {data.map(option => (
-        <ProductOption key={`product-options-${option.id}`} {...option} />
+      {data.map((option, index) => (
+        <ProductOption
+          key={`product-options-${option.id}`}
+          sticky={activeSection === index}
+          ref={ref => addOptionReference(ref)}
+          {...option}
+        />
       ))}
     </div>
   );
