@@ -33,4 +33,18 @@ export const productRouter = createTRPCRouter({
         },
       });
     }),
+  getProductOptions: publicProcedure
+    .input(z.object({ productId: z.string() }))
+    .query(({ input, ctx }) => {
+      const { productId } = input;
+
+      return ctx.prisma.productOption.findMany({
+        where: {
+          productId,
+        },
+        include: {
+          variants: true,
+        },
+      });
+    }),
 });
