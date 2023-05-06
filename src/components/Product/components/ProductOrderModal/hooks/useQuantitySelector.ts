@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-interface QuantitySelectorContextData {
+export interface QuantitySelectorContextData {
   initialQuantity: number;
   quantity: number;
   increase: () => void;

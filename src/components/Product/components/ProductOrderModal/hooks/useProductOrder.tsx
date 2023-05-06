@@ -1,11 +1,9 @@
 import { type PropsWithChildren, createContext, useContext } from 'react';
 
-import { useQuantitySelector } from './index';
+import { type QuantitySelectorContextData, useQuantitySelector } from './index';
 
 interface ProductOrderContextData {
-  quantity: number;
-  increase: () => void;
-  decrease: () => void;
+  quantitySelector: QuantitySelectorContextData;
 }
 
 const ProductOrderContext = createContext({} as ProductOrderContextData);
@@ -18,7 +16,7 @@ export const ProductOrderContextProvider: React.FC<
   const quantitySelector = useQuantitySelector(1);
 
   return (
-    <ProductOrderContext.Provider value={{ ...quantitySelector }}>
+    <ProductOrderContext.Provider value={{ quantitySelector }}>
       {children}
     </ProductOrderContext.Provider>
   );
