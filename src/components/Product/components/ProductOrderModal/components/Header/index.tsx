@@ -11,7 +11,7 @@ export const Header: React.FC<Props> = props => {
   const { productName, onClose } = props;
 
   return (
-    <div className="relative my-4 flex items-center justify-center">
+    <div className="sticky top-0 z-20 flex items-center justify-center bg-white py-4">
       <button className="absolute left-2" onClick={onClose}>
         <BsChevronLeft className="text-red" size={30} />
       </button>
