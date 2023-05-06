@@ -1,15 +1,12 @@
+import { type Product as IProduct } from '@prisma/client';
+
 import { NewProductTag, ProductDetails, ProductImage } from './components';
 
 import { ProductContextProvider, useProductModal } from './hooks';
 
 import { ProductOrderModal } from './components';
 
-interface Props {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  imageUrl: string;
+interface Props extends IProduct {
   isNew?: boolean;
 }
 
@@ -27,15 +24,17 @@ export const Product: React.FC<Props> = props => {
     >
       {isNew && <NewProductTag />}
 
-      <ProductContextProvider product={product}>
-        {isModalOpen && <ProductOrderModal onClose={closeModal} />}
+      {isModalOpen && (
+        <ProductContextProvider product={product}>
+          <ProductOrderModal onClose={closeModal} />
+        </ProductContextProvider>
+      )}
 
-        <button className="flex gap-4 p-4" onClick={openModal}>
-          <ProductImage src={imageUrl} alt={name} />
+      <button className="flex gap-4 p-4" onClick={openModal}>
+        <ProductImage src={imageUrl} alt={name} />
 
-          <ProductDetails {...product} />
-        </button>
-      </ProductContextProvider>
+        <ProductDetails {...product} />
+      </button>
     </div>
   );
 };
