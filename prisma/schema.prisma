@@ -6,8 +6,18 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
+    provider = "postgresql"
     url      = env("DATABASE_URL")
+}
+
+// { name: 'Burgers', routeName: 'burgers' }
+model ProductCategory {
+    id String @id @default(cuid())
+    name String
+    routeName String @unique @map("route_name")
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model ProductType {
@@ -18,7 +28,6 @@ model ProductType {
     updatedAt DateTime @updatedAt
 
     products Product[]
-    productOptions ProductOption[]
 }
 
 model Product {
@@ -34,7 +43,7 @@ model Product {
     productTypeId String @map("product_type_id")
     productType ProductType @relation(fields: [productTypeId], references: [id]) 
 
-    productVariants ProductVariant[]
+    productOptions ProductOption[]
 }
 
 model ProductOption {
@@ -46,8 +55,8 @@ model ProductOption {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    productTypeId String @map("product_type_id")
-    productType ProductType @relation(fields: [productTypeId], references: [id])
+    productId String @map("product_id")
+    product Product @relation(fields: [productId], references: [id])
 
     variants ProductVariant[]
 }
@@ -55,6 +64,7 @@ model ProductOption {
 model ProductVariant {
     id String @id @default(cuid())
     name String // small, 600ml, 300ml, cheese, bacon
+    description String?
     price Int
 
     createdAt DateTime @default(now())
@@ -62,7 +72,4 @@ model ProductVariant {
 
     productOptionId String @map("product_option_id")
     productOption ProductOption @relation(fields: [productOptionId], references: [id])
-
-    productId String @map("product_id")
-    product Product @relation(fields: [productId], references: [id])
 }
