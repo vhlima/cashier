@@ -1,4 +1,4 @@
-import { useQuantitySelector } from '../../hooks';
+import { useProductOrder } from '../../hooks';
 
 import { AmountSelector, AddToCartButton } from '../index';
 
@@ -9,7 +9,7 @@ interface Props {
 export const ProductOrderControls: React.FC<Props> = props => {
   const { productPrice } = props;
 
-  const quantitySelector = useQuantitySelector(1);
+  const { quantitySelector } = useProductOrder();
 
   return (
     <div className="mt-4 grid grid-rows-2 gap-4 lg:grid-cols-2">
