@@ -1,4 +1,5 @@
 import { Typography } from '@/components';
+import { formatCurrency } from '@/utils';
 
 interface Props {
   name: string;
@@ -24,8 +25,13 @@ export const ProductDetails: React.FC<Props> = props => {
         {description}
       </Typography>
 
-      <Typography className="mt-4 block text-start" component="span" size="lg">
-        $<span data-testid="menu-product-price">{price}</span>
+      <Typography
+        className="mt-4 block text-start"
+        component="span"
+        size="lg"
+        data-testid="menu-product-price"
+      >
+        {formatCurrency(price)}
       </Typography>
     </div>
   );
