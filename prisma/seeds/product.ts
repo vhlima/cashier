@@ -37,7 +37,6 @@ export async function createProduct(
 
 export async function createProductOption(
   client: PrismaClient,
-  productTypeId: string,
   input: Omit<Prisma.ProductOptionCreateInput, 'productType'>,
 ): Promise<ProductOption> {
   const productOption = client.productOption.create({

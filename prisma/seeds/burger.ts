@@ -1,8 +1,45 @@
-import { type PrismaClient } from '@prisma/client';
+import {
+  type ProductOption,
+  type Prisma,
+  type PrismaClient,
+} from '@prisma/client';
 
 import { createProductOption, createProductVariant } from './index';
 
 import { faker } from '@faker-js/faker';
+
+async function createProductOptions(
+  client: PrismaClient,
+  productId: string,
+  options: Array<Omit<Prisma.ProductOptionCreateInput, 'product'>>,
+): Promise<ProductOption[]> {
+  const productOptionsPromises = options.map(option =>
+    createProductOption(client, {
+      product: {
+        connect: {
+          id: productId,
+        },
+      },
+      ...option,
+    }),
+  );
+
+  const productOptions = await Promise.all(productOptionsPromises);
+
+  return productOptions;
+}
+
+async function createProductVariants(
+  client: PrismaClient,
+  productOptionId: string,
+  options: Omit<Prisma.ProductVariantCreateInput, 'productOption'>[],
+): Promise<void> {
+  const productVariantsPromise = options.map(option =>
+    createProductVariant(client, productOptionId, option),
+  );
+
+  await Promise.all(productVariantsPromise);
+}
 
 export async function createBurgers(client: PrismaClient): Promise<void> {
   const burgerProductType = await client.productType.create({
@@ -30,30 +67,36 @@ export async function createBurgers(client: PrismaClient): Promise<void> {
 
   const fakeBurgers = await Promise.all(fakeBurgersPromise);
 
-  const productOptionsPromises = fakeBurgers.map(burger =>
-    createProductOption(client, burgerProductType.id, {
-      name: 'Extras',
-      product: {
-        connect: {
-          id: burger.id,
-        },
+  const productOptionsPromise = fakeBurgers.map(burger =>
+    createProductOptions(client, burger.id, [
+      {
+        name: 'Sauce',
+        minOptions: 1,
+        maxOptions: 1,
       },
-      minOptions: 0,
-      maxOptions: 5,
-    }),
+      {
+        name: 'Extras',
+        minOptions: 0,
+        maxOptions: 5,
+      },
+    ]),
   );
 
-  const productOptions = await Promise.all(productOptionsPromises);
+  const productOptions = (await Promise.all(productOptionsPromise)).flat();
 
   const fakeBurgersVariants = productOptions.map(option =>
-    createProductVariant(client, option.id, {
-      name: faker.commerce.product(),
-      price: faker.datatype.number(),
-      description:
-        faker.datatype.number({ min: 1, max: 2 }) === 1
-          ? faker.commerce.productDescription()
-          : undefined,
-    }),
+    createProductVariants(
+      client,
+      option.id,
+      Array.from({ length: 4 }).map(() => ({
+        name: faker.commerce.product(),
+        price: faker.datatype.number(),
+        description:
+          faker.datatype.number({ min: 1, max: 2 }) === 1
+            ? faker.commerce.productDescription()
+            : undefined,
+      })),
+    ),
   );
 
   await Promise.all(fakeBurgersVariants);
