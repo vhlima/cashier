@@ -1,35 +1,26 @@
-import { Typography } from '@/components';
+import { type HTMLAttributes } from 'react';
 
-import { useQuantitySelector } from '../../../../hooks';
+import { ProductVariant, ProductOptionsHeader } from '../index';
 
-import { AmountSelector } from '../../../AmountSelector';
+import { type ProductVariant as IProductVariant } from '@prisma/client';
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   name: string;
-  description: string | null;
-  price: number;
+  variants: IProductVariant[];
 }
 
 export const ProductOption: React.FC<Props> = props => {
-  const { name, description, price } = props;
-
-  const quantitySelector = useQuantitySelector();
+  const { name, variants, ...rest } = props;
 
   return (
-    <li className="flex items-center justify-between border-b border-b-gray-200 py-4 last-of-type:border-b-0">
-      <div className="flex flex-col">
-        <Typography component="span">{name}</Typography>
+    <div {...rest}>
+      <ProductOptionsHeader title={name} description="Escolha até 4 opções." />
 
-        {description && (
-          <Typography component="span" size="sm">
-            {description}
-          </Typography>
-        )}
-
-        <Typography component="span">+ ${price}</Typography>
-      </div>
-
-      <AmountSelector {...quantitySelector} />
-    </li>
+      <ul className="px-4">
+        {variants.map(variant => (
+          <ProductVariant key={`product-option-${variant.id}`} {...variant} />
+        ))}
+      </ul>
+    </div>
   );
 };
