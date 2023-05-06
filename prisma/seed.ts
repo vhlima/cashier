@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-import { createBurgers } from './seeds';
+import { createBurgers, createIceCreams } from './seeds';
 
 const client = new PrismaClient();
 
@@ -8,6 +8,7 @@ async function main() {
   console.log('[Seed] Starting seeding.');
 
   await createBurgers(client);
+  await createIceCreams(client);
 
   console.log('[Seed] Seeding completed.');
 }

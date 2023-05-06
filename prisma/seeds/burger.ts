@@ -1,10 +1,8 @@
-import { type Product, type Prisma, type PrismaClient } from '@prisma/client';
+import { type PrismaClient } from '@prisma/client';
 
-import {
-  createProduct,
-  createProductOption,
-  createProductVariant,
-} from './index';
+import { createProductOption, createProductVariant } from './index';
+
+import { faker } from '@faker-js/faker';
 
 export async function createBurgers(client: PrismaClient): Promise<void> {
   const burgerProductType = await client.productType.create({
@@ -13,47 +11,50 @@ export async function createBurgers(client: PrismaClient): Promise<void> {
     },
   });
 
-  const extrasProductOption = await createProductOption(
-    client,
-    burgerProductType.id,
-    {
+  const fakeBurgersPromise = Array.from({ length: 2 }).map(() => {
+    return client.product.create({
+      data: {
+        name: faker.commerce.product(),
+        description: faker.commerce.productDescription(),
+        imageUrl:
+          'https://cache-backend-mcd.mcdonaldscupones.com/media/image/product$kzXCTbnv/200/200/original?country=br',
+        price: faker.datatype.number(),
+        productType: {
+          connect: {
+            id: burgerProductType.id,
+          },
+        },
+      },
+    });
+  });
+
+  const fakeBurgers = await Promise.all(fakeBurgersPromise);
+
+  const productOptionsPromises = fakeBurgers.map(burger =>
+    createProductOption(client, burgerProductType.id, {
       name: 'Extras',
+      product: {
+        connect: {
+          id: burger.id,
+        },
+      },
       minOptions: 0,
-      maxOptions: 10,
-    },
+      maxOptions: 5,
+    }),
   );
 
-  const burger = await createBurger(client, burgerProductType.id, {
-    name: 'Big Mac',
-    imageUrl:
-      'https://cache-backend-mcd.mcdonaldscupones.com/media/image/product$kzXCTbnv/200/200/original?country=br',
-    price: 0,
-  });
+  const productOptions = await Promise.all(productOptionsPromises);
 
-  await createProductVariant(client, extrasProductOption.id, {
-    name: 'Bacon',
-    price: 1,
-    product: {
-      connect: {
-        id: burger.id,
-      },
-    },
-  });
-}
+  const fakeBurgersVariants = productOptions.map(option =>
+    createProductVariant(client, option.id, {
+      name: faker.commerce.product(),
+      price: faker.datatype.number(),
+      description:
+        faker.datatype.number({ min: 1, max: 2 }) === 1
+          ? faker.commerce.productDescription()
+          : undefined,
+    }),
+  );
 
-async function createBurger(
-  client: PrismaClient,
-  productTypeId: string,
-  input: Omit<Prisma.ProductCreateInput, 'productType'>,
-): Promise<Product> {
-  const product = await createProduct(client, {
-    ...input,
-    productType: {
-      connect: {
-        id: productTypeId,
-      },
-    },
-  });
-
-  return product;
+  await Promise.all(fakeBurgersVariants);
 }

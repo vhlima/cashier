@@ -30,18 +30,9 @@ export async function createProduct(
   client: PrismaClient,
   input: Prisma.ProductCreateInput,
 ): Promise<Product> {
-  const { name, price, imageUrl, productType } = input;
-
-  const product = await client.product.create({
-    data: {
-      name,
-      price,
-      imageUrl,
-      productType,
-    },
+  return client.product.create({
+    data: input,
   });
-
-  return product;
 }
 
 export async function createProductOption(
@@ -49,15 +40,8 @@ export async function createProductOption(
   productTypeId: string,
   input: Omit<Prisma.ProductOptionCreateInput, 'productType'>,
 ): Promise<ProductOption> {
-  const productOption = await client.productOption.create({
-    data: {
-      ...input,
-      productType: {
-        connect: {
-          id: productTypeId,
-        },
-      },
-    },
+  const productOption = client.productOption.create({
+    data: input,
   });
 
   return productOption;
