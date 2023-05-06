@@ -12,9 +12,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 export const AddToCartButton: React.FC<Props> = props => {
   const { className, productPrice, quantity, ...rest } = props;
 
-  function calculateTotal() {
-    return productPrice * quantity;
-  }
+  const totalPrice = productPrice * quantity;
 
   return (
     <button
@@ -25,7 +23,7 @@ export const AddToCartButton: React.FC<Props> = props => {
       {...rest}
     >
       <Typography className="font-bold text-white" component="span">
-        Add to cart&nbsp;(${calculateTotal()})
+        Add to cart&nbsp;(${totalPrice})
       </Typography>
     </button>
   );
