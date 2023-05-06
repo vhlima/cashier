@@ -1,3 +1,4 @@
+import { type Product } from '@prisma/client';
 import {
   type PropsWithChildren,
   createContext,
@@ -5,13 +6,7 @@ import {
   useContext,
 } from 'react';
 
-type ProductData = {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  imageUrl: string;
-};
+type ProductData = Product;
 
 interface ProductContextData {
   product: ProductData;
