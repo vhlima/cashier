@@ -25,7 +25,11 @@ export const ProductOrderModal: React.FC<Props> = props => {
   const { name, imageUrl } = product;
 
   return (
-    <Modal className="rounded-md bg-white" center onClickBackdrop={onClose}>
+    <Modal
+      className="overflow-y-auto rounded-md bg-white"
+      center
+      onClickBackdrop={onClose}
+    >
       <Header productName={product.name} onClose={onClose} />
 
       <div className="flex flex-col gap-4 px-4 lg:flex-row">
