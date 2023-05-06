@@ -5,6 +5,7 @@ import { ProductContextProvider, useProductModal } from './hooks';
 import { ProductOrderModal } from './components';
 
 interface Props {
+  id: string;
   name: string;
   description: string;
   price: number;

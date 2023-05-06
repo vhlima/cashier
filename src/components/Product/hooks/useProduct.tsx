@@ -6,6 +6,7 @@ import {
 } from 'react';
 
 type ProductData = {
+  id: string;
   name: string;
   description: string;
   price: number;

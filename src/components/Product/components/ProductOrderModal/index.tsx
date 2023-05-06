@@ -34,7 +34,7 @@ export const ProductOrderModal: React.FC<Props> = props => {
         <div className="flex flex-col gap-4">
           <ProductDetails {...product} />
 
-          <ProductOptions />
+          <ProductOptions productId={product.id} />
 
           <SpecialInstructions />
 
