@@ -6,7 +6,7 @@ import { Typography } from '@/components';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   title: string;
-  description: string;
+  description?: string;
 }
 
 export const ProductOptionHeader: React.FC<Props> = props => {
@@ -20,9 +20,12 @@ export const ProductOptionHeader: React.FC<Props> = props => {
       <Typography className="font-bold" component="h2">
         {title}
       </Typography>
-      <Typography component="span" size="sm">
-        {description}
-      </Typography>
+
+      {description && (
+        <Typography component="span" size="sm">
+          {description}
+        </Typography>
+      )}
     </div>
   );
 };

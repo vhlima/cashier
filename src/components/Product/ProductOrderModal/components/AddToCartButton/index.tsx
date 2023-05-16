@@ -1,4 +1,4 @@
-import { type ButtonHTMLAttributes } from 'react';
+import { useMemo, type ButtonHTMLAttributes, type MouseEvent } from 'react';
 
 import clsx from 'clsx';
 
@@ -8,28 +8,64 @@ import { useShoppingCart } from '@/hooks';
 
 import { formatCurrency } from '@/utils';
 
-import { useProductOrder } from '../../hooks';
+import { useProductOptions, useProductOrder } from '../../hooks';
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const AddToCartButton: React.FC<Props> = props => {
-  const { className, ...rest } = props;
+  const { className, onClick, ...rest } = props;
+
+  const { product, quantitySelector } = useProductOrder();
+
+  const { selectedOptions } = useProductOptions();
 
   const { addProduct } = useShoppingCart();
 
-  const { product, productVariant, quantitySelector } = useProductOrder();
-
   const { quantity } = quantitySelector;
 
-  function handleAddProduct(): void {
+  function handleClick(e: MouseEvent<HTMLButtonElement>): void {
     addProduct({
-      product,
+      productId: product.id,
       quantity,
-      variants: Object.values(productVariant.variants).map(variant => variant),
+      options: selectedOptions,
     });
+
+    if (onClick) {
+      onClick(e);
+    }
   }
 
-  const totalPrice = product.price * quantity;
+  const optionsPrice = useMemo(
+    () =>
+      Object.entries(selectedOptions).reduce((optionsAgg, entry) => {
+        const [optionId, variants] = entry;
+
+        const option = product.productOptions.find(
+          currentOption => currentOption.id === optionId,
+        );
+
+        if (!option) {
+          return optionsAgg;
+        }
+
+        const variantsPrice = variants.reduce((variantsAgg, variantInfo) => {
+          const variant = option.variants.find(
+            v => v.id === variantInfo.variantId,
+          );
+
+          if (!variant) {
+            return variantsAgg;
+          }
+
+          return (variantsAgg += variant.price * variantInfo.quantity);
+        }, 0);
+
+        return (optionsAgg += variantsPrice);
+      }, 0),
+    [selectedOptions, product],
+  );
+
+  const totalPrice = (product.price + optionsPrice) * quantity;
 
   return (
     <button
@@ -37,8 +73,8 @@ export const AddToCartButton: React.FC<Props> = props => {
         'flex w-full items-center justify-center rounded-sm bg-red p-2',
         className && className,
       )}
+      onClick={handleClick}
       {...rest}
-      onClick={handleAddProduct}
     >
       <Typography className="font-bold text-white" component="span">
         Add to cart&nbsp;({formatCurrency(totalPrice)})

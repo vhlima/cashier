@@ -1,53 +1,24 @@
-import { type ProductVariant as IProductVariant } from '@prisma/client';
+import { type ProductVariant as ProductVariantProps } from '@prisma/client';
 
 import { Typography } from '@/components';
 
-import { useProductOrder } from '../../../../hooks';
-
-import { AmountSelector } from '../../../AmountSelector';
-import { RadioButton } from './components';
 import { formatCurrency } from '@/utils';
 
-interface Props extends IProductVariant {
-  option: {
-    minQuantity: number;
-    maxQuantity: number;
-  };
+import { VariantRadioSelector, VariantAmountSelector } from './components';
+
+interface Props extends ProductVariantProps {
+  intent?: 'selector' | 'radio';
 }
 
 export const ProductVariant: React.FC<Props> = props => {
-  const { id, name, description, price, option } = props;
-
-  const { productVariant } = useProductOrder();
-
-  const { variants, findVariant, addVariant, updateVariant } = productVariant;
-
-  function increaseQuantity(): void {
-    const variant = findVariant(id);
-
-    if (variant) {
-      updateVariant(id, variant => ({
-        quantity: variant.quantity + 1,
-      }));
-      return;
-    }
-
-    addVariant({
-      quantity: 1,
-      variant: props,
-    });
-  }
-
-  function decreaseQuantity(): void {
-    const variant = findVariant(id);
-
-    if (variant) {
-      updateVariant(id, variant => ({
-        quantity: variant.quantity - 1,
-      }));
-      return;
-    }
-  }
+  const {
+    intent = 'selector',
+    id,
+    productOptionId,
+    name,
+    description,
+    price,
+  } = props;
 
   return (
     <li className="flex items-center justify-between border-b border-b-gray-200 py-4 last-of-type:border-b-0">
@@ -60,18 +31,15 @@ export const ProductVariant: React.FC<Props> = props => {
           </Typography>
         )}
 
-        <Typography component="span">+ {formatCurrency(price)}</Typography>
+        {price > 0 && (
+          <Typography component="span">+ {formatCurrency(price)}</Typography>
+        )}
       </div>
 
-      {option.minQuantity === 1 && option.maxQuantity === 1 ? (
-        <RadioButton asd={name} />
+      {intent === 'radio' ? (
+        <VariantRadioSelector variantId={id} optionId={productOptionId} />
       ) : (
-        <AmountSelector
-          initialQuantity={0}
-          quantity={variants[id]?.quantity || 0}
-          increase={increaseQuantity}
-          decrease={decreaseQuantity}
-        />
+        <VariantAmountSelector variantId={id} optionId={productOptionId} />
       )}
     </li>
   );

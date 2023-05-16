@@ -1,22 +1,28 @@
 import { type PropsWithChildren, createContext, useContext } from 'react';
 
-import { type Product } from '@prisma/client';
-
 import {
-  type QuantitySelectorContextData,
-  type ProductVariantContextData,
-  useQuantitySelector,
-  useProductVariant,
-} from './index';
+  type ProductOption,
+  type Product,
+  type ProductVariant,
+} from '@prisma/client';
+
+import { useShoppingCart } from '@/hooks';
+
+import { type QuantitySelectorContextData, useQuantitySelector } from './index';
+
+type ProductWithOptions = Product & {
+  productOptions: (ProductOption & {
+    variants: ProductVariant[];
+  })[];
+};
 
 interface ProductOrderContextData {
-  product: Product;
+  product: ProductWithOptions;
   quantitySelector: QuantitySelectorContextData;
-  productVariant: ProductVariantContextData;
 }
 
 interface Props {
-  product: Product;
+  product: ProductWithOptions;
 }
 
 const ProductOrderContext = createContext({} as ProductOrderContextData);
@@ -26,13 +32,19 @@ export const ProductOrderContextProvider: React.FC<
 > = props => {
   const { product, children } = props;
 
-  const quantitySelector = useQuantitySelector(1);
+  const { products } = useShoppingCart();
 
-  const productVariant = useProductVariant();
+  const defaultQuantitySelectorState =
+    products.find(info => info.productId === product.id)?.quantity || 1;
+
+  const quantitySelector = useQuantitySelector(defaultQuantitySelectorState);
 
   return (
     <ProductOrderContext.Provider
-      value={{ product, quantitySelector, productVariant }}
+      value={{
+        product,
+        quantitySelector,
+      }}
     >
       {children}
     </ProductOrderContext.Provider>

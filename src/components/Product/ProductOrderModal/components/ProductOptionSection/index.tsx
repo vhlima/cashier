@@ -26,13 +26,15 @@ export const ProductOptionSection = forwardRef<HTMLDivElement, Props>(
             'sticky top-[9.5%]': sticky,
           })}
           title={name}
-          description="Escolha até 4 opções."
+          description={
+            maxOptions ? `Escolha até ${maxOptions} opções.` : undefined
+          }
         />
 
         {variants.map(variant => (
           <ProductVariant
             key={`product-variant-${variant.id}`}
-            option={{ minQuantity: minOptions, maxQuantity: maxOptions || 0 }}
+            intent={minOptions === 1 && maxOptions === 1 ? 'radio' : 'selector'}
             {...variant}
           />
         ))}

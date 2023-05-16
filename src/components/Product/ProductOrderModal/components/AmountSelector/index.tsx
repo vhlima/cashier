@@ -4,20 +4,24 @@ import clsx from 'clsx';
 
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 
-import { Typography } from '@/components';
-
 import { AmountSelectorButton } from './components';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-  initialQuantity: number;
   quantity: number;
+  canIncrease?: boolean;
   increase: () => void;
   decrease: () => void;
 }
 
 export const AmountSelector: React.FC<Props> = props => {
-  const { className, initialQuantity, quantity, increase, decrease, ...rest } =
-    props;
+  const {
+    className,
+    quantity,
+    canIncrease = true,
+    increase,
+    decrease,
+    ...rest
+  } = props;
 
   return (
     <div
@@ -29,22 +33,16 @@ export const AmountSelector: React.FC<Props> = props => {
     >
       {quantity > 0 && (
         <>
-          <AmountSelectorButton
-            icon={AiOutlineMinus}
-            onClick={decrease}
-            disabled={quantity === initialQuantity}
-          />
+          <AmountSelectorButton icon={AiOutlineMinus} onClick={decrease} />
 
-          <Typography className="px-2" component="span" size="lg">
-            {quantity}
-          </Typography>
+          <span className="w-fit px-2">{quantity}</span>
         </>
       )}
 
       <AmountSelectorButton
         icon={AiOutlinePlus}
         onClick={increase}
-        disabled={quantity === 10}
+        disabled={!canIncrease}
       />
     </div>
   );

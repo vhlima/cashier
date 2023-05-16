@@ -2,6 +2,11 @@ import type { PropsWithChildren } from 'react';
 
 import { Sidenav } from './components';
 
+import {
+  MobileDetectorContextProvider,
+  ShoppingCartContextProvider,
+} from '@/hooks';
+
 const Layout: React.FC<PropsWithChildren> = props => {
   const { children } = props;
 
@@ -12,7 +17,13 @@ const Layout: React.FC<PropsWithChildren> = props => {
       <div className="flex h-screen w-screen bg-white-low">
         <Sidenav />
 
-        <main className="w-full overflow-y-auto">{children}</main>
+        <main className="w-full overflow-y-auto">
+          <MobileDetectorContextProvider>
+            <ShoppingCartContextProvider>
+              {children}
+            </ShoppingCartContextProvider>
+          </MobileDetectorContextProvider>
+        </main>
       </div>
     </>
   );

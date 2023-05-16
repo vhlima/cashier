@@ -1,5 +1,3 @@
-import { type ProductVariant } from '@prisma/client';
-
 import { Modal, ProductInfo } from '@/components';
 
 import { ProductImage } from '@/components/Product/ProductImage';
@@ -11,22 +9,21 @@ import {
   SpecialInstructions,
 } from './components';
 
-import { ProductOrderContextProvider, useScrollSection } from './hooks';
+import {
+  ProductOptionsProvider,
+  ProductOrderContextProvider,
+  useScrollSection,
+} from './hooks';
 
 import { api } from '@/utils/api';
-import { Form, Formik } from 'formik';
 
 interface Props {
   productId: string;
-  variants?: Array<{
-    quantity: number;
-    variant: ProductVariant;
-  }>;
   onClose: () => void;
 }
 
 export const ProductOrderModal: React.FC<Props> = props => {
-  const { productId, variants, onClose } = props;
+  const { productId, onClose } = props;
 
   const { data: product, isLoading } =
     api.product.getProductWithOptions.useQuery({ productId });
@@ -68,35 +65,28 @@ export const ProductOrderModal: React.FC<Props> = props => {
         />
 
         <ProductOrderContextProvider product={product}>
-          <div className="flex flex-col" ref={referenceContainerRef}>
-            <Formik
-              initialValues={{ asd: '' }}
-              onSubmit={() => {
-                console.log(`submit`);
-              }}
-            >
-              <Form>
-                <div className="relative flex flex-col gap-4">
-                  <ProductInfo {...product} />
+          <ProductOptionsProvider productId={product.id}>
+            <div className="flex flex-col" ref={referenceContainerRef}>
+              <div className="relative flex flex-col gap-4">
+                <ProductInfo {...product} />
 
-                  <div>
-                    {product.productOptions.map((option, index) => (
-                      <ProductOptionSection
-                        key={`product-options-${option.id}`}
-                        ref={ref => addSectionReference(ref)}
-                        sticky={activeSection === index}
-                        {...option}
-                      />
-                    ))}
-                  </div>
-
-                  <SpecialInstructions />
+                <div>
+                  {product.productOptions.map((option, index) => (
+                    <ProductOptionSection
+                      key={`product-options-${option.id}`}
+                      ref={ref => addSectionReference(ref)}
+                      sticky={activeSection === index}
+                      {...option}
+                    />
+                  ))}
                 </div>
 
-                <ProductOrderControls />
-              </Form>
-            </Formik>
-          </div>
+                <SpecialInstructions />
+              </div>
+
+              <ProductOrderControls onClose={onClose} />
+            </div>
+          </ProductOptionsProvider>
         </ProductOrderContextProvider>
       </div>
     </Modal>

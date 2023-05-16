@@ -12,6 +12,7 @@ export const AmountSelectorButton: React.FC<Props> = props => {
   return (
     <button
       className="group flex w-full justify-center p-2 disabled:cursor-not-allowed"
+      type="button"
       {...rest}
     >
       <IconElement
