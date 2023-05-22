@@ -56,6 +56,10 @@ export const ShoppingCartContextProvider: React.FC<
   const [products, setProducts] =
     useState<ShoppingCartProduct[]>(defaultProductsState);
 
+  const updateLocalStorage = (products: ShoppingCartProduct[]) => {
+    localStorage.setItem('shopping-cart', JSON.stringify(products));
+  };
+
   const addProduct: AddProduct = useCallback(
     productInfo => {
       setProducts(existingProducts => {
@@ -71,7 +75,7 @@ export const ShoppingCartContextProvider: React.FC<
           updatedProducts.push(productInfo);
         }
 
-        localStorage.setItem('shopping-cart', JSON.stringify(updatedProducts));
+        updateLocalStorage(updatedProducts);
         return updatedProducts;
       });
     },
@@ -80,9 +84,14 @@ export const ShoppingCartContextProvider: React.FC<
 
   const removeProduct: RemoveProduct = useCallback(
     productId => {
-      setProducts(existingProducts =>
-        existingProducts.filter(info => info.productId !== productId),
-      );
+      setProducts(existingProducts => {
+        const updatedProducts = existingProducts.filter(
+          info => info.productId !== productId,
+        );
+
+        updateLocalStorage(updatedProducts);
+        return updatedProducts;
+      });
     },
     [setProducts],
   );
