@@ -8,12 +8,15 @@ import {
   useCallback,
 } from 'react';
 
-type ShoppingCartProductOption = {
+export type ShoppingCartOptionVariant = {
   variantId: string;
   quantity: number;
 };
 
-type ShoppingCartProductOptions = Record<string, ShoppingCartProductOption[]>;
+export type ShoppingCartProductOptions = Record<
+  string,
+  ShoppingCartOptionVariant[]
+>;
 
 type ShoppingCartProduct = {
   productId: string;
