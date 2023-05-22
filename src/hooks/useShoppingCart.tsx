@@ -81,7 +81,7 @@ export const ShoppingCartContextProvider: React.FC<
   const removeProduct: RemoveProduct = useCallback(
     productId => {
       setProducts(existingProducts =>
-        existingProducts.filter(info => info.productId === productId),
+        existingProducts.filter(info => info.productId !== productId),
       );
     },
     [setProducts],
