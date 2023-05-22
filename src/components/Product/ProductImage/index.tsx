@@ -14,14 +14,18 @@ export const ProductImage: React.FC<Props> = props => {
   return (
     <div
       className={clsx(
-        'flex h-fit items-center justify-center rounded-sm bg-yellow-100 p-4',
+        'flex h-fit items-center justify-center rounded-2xl bg-yellow-100',
+        {
+          'p-4': size !== 'sm',
+          'p-2': size === 'sm',
+        },
         className && className,
       )}
       {...rest}
     >
       <div
         className={clsx('relative', {
-          'h-20 w-20': size === 'sm',
+          'h-12 w-12': size === 'sm',
           'h-24 w-24': size === 'md',
           'h-64 w-64': size === 'lg',
         })}
