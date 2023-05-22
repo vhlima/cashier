@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 export interface QuantitySelectorContextData {
-  initialQuantity: number;
   quantity: number;
   increase: () => void;
   decrease: () => void;
@@ -21,7 +20,6 @@ export function useQuantitySelector(
   }
 
   return {
-    initialQuantity,
     quantity,
     increase,
     decrease,
