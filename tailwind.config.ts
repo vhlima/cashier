@@ -20,6 +20,16 @@ export default {
         brown: '#524239',
         red: '#ff2454',
         orange: '#dfa345',
+
+        primary: '#ea1d2c', // main color
+        secondary: '#fff', // background
+        tertiary: '#f7f7f7', // background highlight
+        quaternary: '#dcdcdc', // borders
+        't-primary': '#3e3e3e', // text
+        't-secondary': '#717171', // text
+        't-tertiary': '#1a1a1a',
+        't-green': '#50a773',
+        't-yellow': '#fcbb00',
       },
     },
   },
