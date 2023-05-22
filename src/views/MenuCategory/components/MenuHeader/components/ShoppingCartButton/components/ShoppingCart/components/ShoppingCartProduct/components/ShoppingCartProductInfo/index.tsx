@@ -14,10 +14,13 @@ export const ShoppingCartProductInfo: React.FC<Props> = props => {
   return (
     <div className="flex w-full justify-between gap-4 font-medium">
       <Typography component="h2">
-        {quantity}x {name}
+        <span data-testid="product-quantity">{quantity}</span>x&nbsp;
+        <span data-testid="product-name">{name}</span>
       </Typography>
 
-      <Typography component="span">{formatCurrency(price)}</Typography>
+      <Typography component="span" data-testid="product-price">
+        {formatCurrency(price)}
+      </Typography>
     </div>
   );
 };
