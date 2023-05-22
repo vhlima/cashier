@@ -5,7 +5,7 @@ import clsx from 'clsx';
 interface Props extends HtmlHTMLAttributes<HTMLParagraphElement> {
   component: ElementType;
 
-  color?: 'primary' | 'secondary';
+  color?: 'primary' | 'secondary' | 'tertiary';
   size?: '4xl' | '3xl' | '2xl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs';
 }
 
@@ -18,8 +18,9 @@ export const Typography: React.FC<PropsWithChildren<Props>> = props => {
     <ElementComponent
       className={clsx(
         color && {
-          'text-grey-200': color === 'primary',
-          'text-grey-300': color === 'secondary',
+          'text-t-primary': color === 'primary',
+          'text-t-secondary': color === 'secondary',
+          'text-t-tertiary': color === 'tertiary',
         },
         size && {
           'text-4xl': size === '4xl',
