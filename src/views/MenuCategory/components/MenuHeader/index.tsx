@@ -2,15 +2,20 @@ import { Typography } from '@/components';
 
 import { SearchBar } from '../index';
 
+import { ShoppingCartButton } from './components';
+
 export const MenuHeader: React.FC = () => {
   return (
-    <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+    <div className="flex items-center">
       <Typography component="h1" size="3xl">
         <strong>Menu</strong>
         &nbsp;Category
       </Typography>
 
-      <SearchBar />
+      <div className="ml-auto flex items-center gap-4">
+        <ShoppingCartButton />
+        <SearchBar />
+      </div>
     </div>
   );
 };
