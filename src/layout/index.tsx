@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react';
 
-import { Sidenav } from './components';
+import { Navbar } from './components';
 
 import {
   MobileDetectorContextProvider,
@@ -15,7 +15,7 @@ const Layout: React.FC<PropsWithChildren> = props => {
       <div className="relative" id="modals" />
 
       <div className="flex h-screen w-screen bg-white-low">
-        <Sidenav />
+        <Navbar />
 
         <main className="w-full overflow-y-auto">
           <MobileDetectorContextProvider>
