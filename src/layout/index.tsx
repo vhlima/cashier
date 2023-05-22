@@ -14,10 +14,10 @@ const Layout: React.FC<PropsWithChildren> = props => {
     <>
       <div className="relative" id="modals" />
 
-      <div className="flex h-screen w-screen flex-col bg-white-low">
+      <div className="flex h-screen w-screen flex-col overflow-y-auto bg-white-low">
         <Navbar />
 
-        <main className="w-full overflow-y-auto">
+        <main className="w-full">
           <MobileDetectorContextProvider>
             <ShoppingCartContextProvider>
               {children}
