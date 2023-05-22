@@ -18,7 +18,7 @@ export type ShoppingCartProductOptions = Record<
   ShoppingCartOptionVariant[]
 >;
 
-type ShoppingCartProduct = {
+export type ShoppingCartProduct = {
   productId: string;
   quantity: number;
   options: ShoppingCartProductOptions;
