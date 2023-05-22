@@ -5,7 +5,6 @@ import {
   MenuHeader,
   MenuProducts,
   MenuProductsHeader,
-  ShoppingCart,
 } from './components';
 
 interface Props {
@@ -24,18 +23,14 @@ export const MenuCategory: React.FC<Props> = props => {
   }
 
   return (
-    <div className="flex">
-      <div className="mt-14 px-14">
-        <MenuHeader />
+    <div className="mt-14 px-14">
+      <MenuHeader />
 
-        <MenuCategories selectedCategory={productTypeData.name} />
+      <MenuCategories selectedCategory={productTypeData.name} />
 
-        <MenuProductsHeader />
+      <MenuProductsHeader />
 
-        <MenuProducts productTypeId={productTypeData.id} />
-      </div>
-
-      <ShoppingCart />
+      <MenuProducts productTypeId={productTypeData.id} />
     </div>
   );
 };
