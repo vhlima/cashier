@@ -6,12 +6,12 @@ import { useShoppingCart } from '@/hooks';
 
 import { ShoppingCartButton } from '.';
 
-mockShoppingCart();
-
 function createSut(): RenderResult {
   const sut = render(<ShoppingCartButton />);
   return sut;
 }
+
+mockShoppingCart();
 
 describe('ShoppingCartButton', () => {
   test('Should render the correct quantity of products in the shopping cart', () => {
