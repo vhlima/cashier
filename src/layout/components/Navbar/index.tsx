@@ -8,20 +8,20 @@ import {
 
 export const Navbar: React.FC = () => {
   return (
-    <nav className="bg-secondary p-6">
+    <nav className="border-b border-quaternary bg-secondary p-4">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
         <Logo />
 
-        <div className="flex justify-between gap-2">
+        <div className="flex items-center justify-between gap-2">
           <AddressSelectorButton />
 
           <ShoppingCartButton />
         </div>
+
+        <SearchBar />
       </div>
 
       <StoreCategoryNavigation />
-
-      <SearchBar />
     </nav>
   );
 };
