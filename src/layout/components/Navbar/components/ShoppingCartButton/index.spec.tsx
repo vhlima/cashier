@@ -22,4 +22,10 @@ describe('ShoppingCartButton', () => {
     const quantityElement = sut.getByTestId('shopping-cart-quantity');
     expect(quantityElement.textContent).toEqual(String(products.length));
   });
+  test('Should render shopping cart icon correctly', () => {
+    const sut = createSut();
+
+    const iconElement = sut.getByTestId('shopping-cart-icon');
+    expect(iconElement).toBeInTheDocument();
+  });
 });
