@@ -6,7 +6,7 @@ export const StoreCategoryNavigation: React.FC = () => {
   const currentRoute = 'Home';
 
   return (
-    <ul className="flex gap-4 overflow-x-auto py-4">
+    <ul className="flex gap-4 overflow-x-auto">
       {['Home', 'Restaurants', 'Markets', 'Drinks', 'Pharma'].map(name => (
         <Link
           className={clsx('block font-bold', {
