@@ -28,7 +28,7 @@ type AddProduct = (productInfo: ShoppingCartProduct) => void;
 
 type RemoveProduct = (productId: string) => void;
 
-interface ShoppingCartContextData {
+export interface ShoppingCartContextData {
   products: ShoppingCartProduct[];
   addProduct: AddProduct;
   removeProduct: RemoveProduct;
