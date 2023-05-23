@@ -16,6 +16,7 @@ export const ShoppingCart: React.FC<Props> = props => {
       className="ml-auto rounded-md bg-white p-2"
       center
       onClickBackdrop={onClose}
+      data-testid="shopping-cart"
     >
       <ModalCloseButton onClick={onClose} />
 
