@@ -14,17 +14,15 @@ const Layout: React.FC<PropsWithChildren> = props => {
     <>
       <div className="relative" id="modals" />
 
-      <div className="flex h-screen w-screen flex-col overflow-y-auto bg-secondary">
-        <Navbar />
+      <MobileDetectorContextProvider>
+        <ShoppingCartContextProvider>
+          <div className="flex h-screen w-screen flex-col overflow-y-auto bg-secondary">
+            <Navbar />
 
-        <main className="w-full">
-          <MobileDetectorContextProvider>
-            <ShoppingCartContextProvider>
-              {children}
-            </ShoppingCartContextProvider>
-          </MobileDetectorContextProvider>
-        </main>
-      </div>
+            <main className="w-full">{children}</main>
+          </div>
+        </ShoppingCartContextProvider>
+      </MobileDetectorContextProvider>
     </>
   );
 };
