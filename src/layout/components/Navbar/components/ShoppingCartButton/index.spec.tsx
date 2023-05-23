@@ -1,4 +1,4 @@
-import { type RenderResult, render } from '@testing-library/react';
+import { type RenderResult, render, fireEvent } from '@testing-library/react';
 
 import { mockShoppingCart } from 'tests/mocks';
 
@@ -27,5 +27,14 @@ describe('ShoppingCartButton', () => {
 
     const iconElement = sut.getByTestId('shopping-cart-icon');
     expect(iconElement).toBeInTheDocument();
+  });
+  test('Should open ShoppingCart when clicking the button', () => {
+    const sut = createSut();
+
+    const buttonElement = sut.getByTestId('shopping-cart-button');
+    fireEvent.click(buttonElement);
+
+    const shoppingCartElement = sut.getByTestId('shopping-cart');
+    expect(shoppingCartElement).toBeInTheDocument();
   });
 });
