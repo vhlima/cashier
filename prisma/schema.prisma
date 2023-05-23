@@ -10,6 +10,12 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+model StoreCategory {
+    id String @id @default(cuid())
+    name String @unique
+    routeName String @unique @map("route_name")
+}
+
 // { name: 'Burgers', routeName: 'burgers' }
 model ProductCategory {
     id String @id @default(cuid())
