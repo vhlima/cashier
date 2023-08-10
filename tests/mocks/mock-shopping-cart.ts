@@ -7,6 +7,7 @@ import {
   type ShoppingCartProduct,
   type ShoppingCartProductOptions,
 } from '@/hooks';
+import { type AppRouter } from '@/server/api/root';
 
 function mockShoppingCartVariant(): ShoppingCartOptionVariant {
   return {
